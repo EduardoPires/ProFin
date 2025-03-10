@@ -42,7 +42,7 @@ export class FinancialTransactionFormComponent extends FormBaseComponent impleme
     this.financialTransactionForm = this.fb.group({
       description: ['', Validators.required],
       categoryFinancialTransactionId: ['', Validators.required],
-      value: [0],
+      value: [0,  [Validators.required, Validators.min(0)]],
       userId: ['']
     });
 
@@ -59,13 +59,6 @@ export class FinancialTransactionFormComponent extends FormBaseComponent impleme
     }
 
     this.unsavedChanges = true;
-    //Todo: Colocar duas casas decimais no campo de valor
-    // this.financialTransactionForm.get('value')?.valueChanges.subscribe(value => {
-    //   if (value !== null && value !== undefined) {
-    //     const formattedValue = parseFloat(value).toFixed(2); // Mantém 2 casas decimais
-    //     this.financialTransactionForm.get('value')?.setValue(formattedValue, { emitEvent: false });
-    //   }
-    // });
   }
 
   private loadCategories(): void {
