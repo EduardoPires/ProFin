@@ -32,10 +32,10 @@ export class CreateCategoryComponent extends FormBaseComponent implements OnInit
     this.category = new Category();
     this.validationMessages = {
       name: {
-        required: 'The name is required',
+        required: 'Este campo é obrigatório',
       },
       description: {
-        required: 'The description is required',
+        required: 'Este campo é obrigatório',
       },
     };
 
