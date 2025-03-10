@@ -71,7 +71,7 @@ export class FinancialTransactionFormComponent extends FormBaseComponent impleme
       },
       error: (error) => {
         console.error('Erro ao carregar categorias:', error);
-        this.errorMessage = 'Erro ao carregar categorias. Por favor, tente novamente.';
+        this.errorMessage = error.error.errors.join(', ');
       }
     });
   }
@@ -111,7 +111,7 @@ export class FinancialTransactionFormComponent extends FormBaseComponent impleme
           },
           error: (error) => {
             console.error('Erro ao atualizar transação financeira:', error);
-            this.errorMessage = 'Erro ao atualizar transação financeira. Por favor, tente novamente.';
+            this.errorMessage = error.error.errors.join(', ');
           }
         });
       } else {
@@ -122,7 +122,7 @@ export class FinancialTransactionFormComponent extends FormBaseComponent impleme
           },
           error: (error) => {
             console.error('Erro ao criar transação financeira:', error);
-            this.errorMessage = 'Erro ao criar transação financeira. Por favor, tente novamente.';
+            this.errorMessage = error.error.errors.join(', ');
           }
         });
       }
