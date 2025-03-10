@@ -298,8 +298,7 @@ namespace ProFin.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Budgets_CategoryTransactionId",
                 table: "Budgets",
-                column: "CategoryTransactionId",
-                unique: true);
+                column: "CategoryTransactionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Budgets_UserId",
