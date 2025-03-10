@@ -134,8 +134,8 @@ namespace ProFin.Core.Services
                 return Enumerable.Empty<FinancialTransaction>();
 
             if (_userService.IsAdmin())
-                return await _transactionRepository.GetAll(includes: "CategoryFinancialTransaction");
-            var teste = _userService.GetId();
+                return await _transactionRepository.GetAll(includes: "CategoryFinancialTransaction", expression: filter);
+           
             filter = filter.And(x => x.UserId == _userService.GetId().Value);
 
             return await _transactionRepository.GetAll(includes: "CategoryFinancialTransaction", expression: filter);
