@@ -72,8 +72,7 @@ namespace ProFin.Core.Services
             budget.SetUset(_userService.GetId().Value);
 
             // Verifica se já existe um orçamento para a mesma categoria e usuário
-            var existingBudget = await _budgetRepository
-                .FindAsync(b => b.UserId == budget.UserId && b.CategoryTransactionId == budget.CategoryTransactionId && !b.Deleted);
+            var existingBudget = await _budgetRepository.ExistsByUserAndCategory(budget.UserId, budget.CategoryTransactionId);           
 
             if (existingBudget != null)
             {
@@ -133,6 +132,14 @@ namespace ProFin.Core.Services
         public void Dispose()
         {
             _budgetRepository.Dispose();
+        }
+
+        public async Task<bool> ExistsByUserAndCategory(Guid userId, Guid categoryFinancialTransactionId)
+        {
+            // Verifica se já existe um orçamento para a mesma categoria e usuário
+            var existingBudget = await _budgetRepository.ExistsByUserAndCategory(userId, categoryFinancialTransactionId);
+
+            return existingBudget != null;
         }
     }
 }

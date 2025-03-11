@@ -42,7 +42,8 @@ export class FinancialTransactionFormComponent extends FormBaseComponent impleme
     this.financialTransactionForm = this.fb.group({
       description: ['', Validators.required],
       categoryFinancialTransactionId: ['', Validators.required],
-      value: [0,  [Validators.required, Validators.min(0)]],
+      value: [0, [Validators.required, Validators.min(0)]],
+      transactionType: ['', [Validators.required]],
       userId: ['']
     });
 
@@ -85,6 +86,7 @@ export class FinancialTransactionFormComponent extends FormBaseComponent impleme
           categoryFinancialTransaction: financialTransaction.categoryFinancialTransaction,
           value: financialTransaction.value,
           description: financialTransaction.description,
+          transactionType: financialTransaction.transactionType,
           userId: financialTransaction.userId
         });
       },

@@ -10,6 +10,7 @@ namespace ProFin.Core.Interfaces.Services
         Task<IEnumerable<Budget>> GetAll();
         Task<Budget> GetById(Guid id);
         Task<Budget> GetByCategoryId(Guid categoryId);
+        Task<bool> ExistsByUserAndCategory(Guid value, Guid categoryFinancialTransactionId);
     }
 }
 

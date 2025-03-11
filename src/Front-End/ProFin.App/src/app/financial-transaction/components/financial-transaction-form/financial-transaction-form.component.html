@@ -21,6 +21,21 @@
     </div>
 
 
+    <div class="col-md-3">
+      <label for="transactionType">Tipo</label>
+      <select class="form-control" id="transactionType"
+        [class.is-invalid]="financialTransactionForm.get('transactionType')?.invalid && financialTransactionForm.get('transactionType')?.touched"
+        formControlName="transactionType">
+        <option value=""></option>
+        <option value="E">Entrada</option>
+        <option value="S">Saída</option>
+      </select>
+      <div class="invalid-feedback">
+        O tipo da transação é obrigatório
+      </div>
+    </div>
+
+
     <div class="form-group mb-3">
       <label for="description">Descrição</label>
       <input type="text" class="form-control" id="description"
