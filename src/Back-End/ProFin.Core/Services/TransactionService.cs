@@ -13,11 +13,13 @@ namespace ProFin.Core.Services
     {
         private readonly IFinancialTransactionRepository _transactionRepository;
         private readonly ICategoryService _categoryService;
-        public FinancialTransactionService(IFinancialTransactionRepository transactionRepository, INotifier notifier, IAppUserService userService, ICategoryService categoryService)
+        private readonly IBudgetService _budgetService;
+        public FinancialTransactionService(IFinancialTransactionRepository transactionRepository, INotifier notifier, IAppUserService userService, ICategoryService categoryService, IBudgetService budgetService)
             : base(notifier, userService)
         {
             _transactionRepository = transactionRepository;
             _categoryService = categoryService;
+            _budgetService = budgetService;
         }
 
         public async Task Insert(FinancialTransaction transactionEntity)
@@ -33,6 +35,12 @@ namespace ProFin.Core.Services
             if (!await _categoryService.EnsureValidPermissionCategory(transactionEntity.CategoryFinancialTransactionId))
             {
                 Notifie("Categoria inexistente");
+                return;
+            }
+
+            if(await _budgetService.ExistsByUserAndCategory(_userService.GetId().Value, transactionEntity.CategoryFinancialTransactionId) == false)
+            {
+                Notifie("Não existe um orçamento cadastrado para essa categoria. Por favor, cadastre um orçamento antes de cadastrar a transação");
                 return;
             }
 

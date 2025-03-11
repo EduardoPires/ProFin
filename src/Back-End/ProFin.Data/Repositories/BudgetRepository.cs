@@ -20,5 +20,9 @@ namespace ProFin.Data.Repositories
             return await DbSet.FirstOrDefaultAsync(predicate);
         }
 
+        public async Task<Budget> ExistsByUserAndCategory(Guid userId, Guid categoryFinancialTransactionId)
+        {
+            return await DbSet.FirstOrDefaultAsync(b => b.UserId == userId && b.CategoryTransactionId == categoryFinancialTransactionId && !b.Deleted);
+        }
     }
 }

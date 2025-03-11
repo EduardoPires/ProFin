@@ -16,8 +16,8 @@
                             <label for="name">
                                 Nome
                             </label>
-                            <input type="text" class="form-control" id="name" placeholder="Name (required)"
-                                formControlName="name" [ngClass]="{'is-invalid': displayMessage.name }">
+                            <input type="text" class="form-control" id="name" formControlName="name"
+                                [ngClass]="{'is-invalid': displayMessage.name }">
                             <span class="text-danger" *ngIf="displayMessage.name">
                                 <p [innerHTML]="displayMessage.name"></p>
                             </span>
@@ -26,8 +26,7 @@
                             <label for="Description">
                                 Descrição
                             </label>
-                            <input type="text" class="form-control" id="description"
-                                placeholder="description (required)" formControlName="description"
+                            <input type="text" class="form-control" id="description" formControlName="description"
                                 [ngClass]="{'is-invalid': displayMessage.description }">
                             <span class="text-danger" *ngIf="displayMessage.description">
                                 <p [innerHTML]="displayMessage.description"></p>

@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ProFin.Core.Models;
 using ProFin.Data.Context;
+using System;
 
 namespace ProFin.Data.Seed
 {
@@ -263,68 +264,41 @@ namespace ProFin.Data.Seed
             if (!context.FinancialTransactions.Any())
             {
                 var transactions = new List<FinancialTransaction>();
-                Random random = new Random();
-                double min = 50;
-                double max = 5000;
-                DateTime today = DateTime.Now;
-                DateTime fourMonthsAgo = today.AddMonths(-4);
-
-                // Transações para adminUser
-                for (int i = 0; i < 30; i++)
-                {
-                    var category = adminCategories[random.Next(adminCategories.Count)];
-                    int randomDays = random.Next((today - fourMonthsAgo).Days + 1);
-                    transactions.Add(new FinancialTransaction
-                    {
-                        Value = (decimal)(min + (random.NextDouble() * (max - min))),
-                        Description = $"Gastos com {category.Name} {i}",
-                        CreatedDate = fourMonthsAgo.AddDays(randomDays),
-                        Deleted = false,
-                        UpdatedDate = fourMonthsAgo.AddDays(randomDays),
-                        CategoryFinancialTransactionId = category.Id,
-                        UserId = adminUser.Id,
-                        TransactionType = i < 25 ? Core.Enums.TransactionType.E : Core.Enums.TransactionType.S
-                    });
-                }
-
-                // Transações para user1
-                for (int i = 0; i < 20; i++)
-                {
-                    var category = user1Categories[random.Next(user1Categories.Count)];
-                    int randomDays = random.Next((today - fourMonthsAgo).Days + 1);
-                    transactions.Add(new FinancialTransaction
-                    {
-                        Value = (decimal)(min + (random.NextDouble() * (max - min))),
-                        Description = $"Gastos com {category.Name} {i}",
-                        CreatedDate = fourMonthsAgo.AddDays(randomDays),
-                        Deleted = false,
-                        UpdatedDate = fourMonthsAgo.AddDays(randomDays),
-                        CategoryFinancialTransactionId = category.Id,
-                        UserId = user1.Id,
-                        TransactionType = i < 15 ? Core.Enums.TransactionType.E : Core.Enums.TransactionType.S
-                    });
-                }
-
-                // Transações para user2
-                for (int i = 0; i < 20; i++)
-                {
-                    var category = user2Categories[random.Next(user2Categories.Count)];
-                    int randomDays = random.Next((today - fourMonthsAgo).Days + 1);
-                    transactions.Add(new FinancialTransaction
-                    {
-                        Value = (decimal)(min + (random.NextDouble() * (max - min))),
-                        Description = $"Gastos com {category.Name} {i}",
-                        CreatedDate = fourMonthsAgo.AddDays(randomDays),
-                        Deleted = false,
-                        UpdatedDate = fourMonthsAgo.AddDays(randomDays),
-                        CategoryFinancialTransactionId = category.Id,
-                        UserId = user2.Id,
-                        TransactionType = i < 15 ? Core.Enums.TransactionType.E : Core.Enums.TransactionType.S
-                    });
-                }
+               
+                AddRandomTransaction(adminUser, adminCategories, transactions);
+                AddRandomTransaction(user1, user1Categories, transactions);
+                AddRandomTransaction(user2, user2Categories, transactions);               
 
                 await context.FinancialTransactions.AddRangeAsync(transactions);
                 context.SaveChanges();
+            }
+        }
+
+        private static void AddRandomTransaction(User user, List<CategoryFinancialTransaction> adminCategories, List<FinancialTransaction> transactions)
+        {
+            
+            Random random = new Random();
+            double min = 50;
+            double max = 5000;
+            DateTime today = DateTime.Now;
+            DateTime fourMonthsAgo = today.AddMonths(-4);
+
+            // Transações para adminUser
+            for (int i = 0; i < 10; i++)
+            {
+                var category = adminCategories[random.Next(adminCategories.Count)];
+                int randomDays = random.Next((today - fourMonthsAgo).Days + 1);
+                transactions.Add(new FinancialTransaction
+                {
+                    Value = (decimal)(min + (random.NextDouble() * (max - min))),
+                    Description = $"Gastos com {category.Name} {i}",
+                    CreatedDate = fourMonthsAgo.AddDays(randomDays),
+                    Deleted = false,
+                    UpdatedDate = fourMonthsAgo.AddDays(randomDays),
+                    CategoryFinancialTransactionId = category.Id,
+                    UserId = user.Id,
+                    TransactionType = (i % 2 == 0) ? Core.Enums.TransactionType.E : Core.Enums.TransactionType.S
+                });
             }
         }
 
