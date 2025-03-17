@@ -1,29 +1,38 @@
-# **Feedback 1a Entrega - Avaliação Geral e Recomendações**
+# **Feedback 2a Entrega - Avaliação Geral**
 
 ## Front End
 
 ### Navegação
 
-- Navegação simples.
+- Navegação simples, porém funcional
 
 ### Design
 
-- Design muito simples.
+- Design simples, porém funcional
 
 ### Funcionalidade
 
-- Não testada devido não funcionamento da API
+- As funcionalidades estão implementadas e operando.
+- Criticas:
+    - Ao criar um novo User e realizar login ocorre uma nullreference exception devido uma somatoria de dados na tela
+    - As categorias não vieram carregadas para meu usuário, deveriam haver categorias do sistema disponivel para todos.
+    - Não existe orçamento geral, apenas por categoria.
+    - Na tela de totais são exibidos valores totais que não são do meu user, provavelmente uma somatoria de tudo da base
+    - Senti falta de um Dashboard com um resumo de informações, a tela de totais não atende 100% essa necessidade.
+
 
 ## Back End
 
 ### Arquitetura
 
-- Não cobriu um requisito básico de rodar em development com SQLite
-- Não vejo necessidade para uma camada de Identity isolada (pode ser na API)
+- Separação de responsabilidades e camadas ok
+- Criticas:
+    - Não vi sentido na classe RegisterCore estar na camada de Dados.
+    - PanelService usando instruções HTML hardcoded, isso poderia ser feito com alguma extensibilidade do Razor
 
 ### Funcionalidade
 
-- Não testado, aplicação não roda local
+- Considerando as críticas apontadas, as funcionalidades estão implementadas e funcionando.
 
 ### Modelagem
 
@@ -33,13 +42,12 @@
 
 ### Organização
 
-- Não deveria manter o projeto SPA dentro da estrutura do projeto Server use uma pasta raiz “src” e duas subpastas “front-end e back-end”
+- O projeto da Solution poderia estar na pasta do Back-End e não na raíz
 
 ### Documentação
 
-- Nenhuma documentação no repositório
+- Documentação clara e bem explicativa
 
 ### Instalação
 
-- Não deveria forçar o uso de um SDK específico (global.json) sem um real motivo.
-- Faltou  a configuração de "guid-typescript": "^1.0.8” no package.json, a aplicação não estava compilando sem isto.
+- O projeto rodou fluentemente usando apenas os comandos necessários.
